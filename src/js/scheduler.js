@@ -1,4 +1,5 @@
 var appointments = new Array();
+var scheduler = $("#scheduler");
 var view = "";
 
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
@@ -10,18 +11,23 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 function save(data){
    $.ajax({
       url: 'src/php/salvacarica.php',
-      data: JSON.stringify(data),
+      data: JSON.stringify(data, null, 2),
       type: "POST",
       success: function (response) {
-         console.log(response);
+         console.log("Salvato");
       },
       error: function (response) {
-         console.log(response);
+         console.log("Non salvato, errore: \r\n" + response);
       }
    });
 }
 
 $('#scheduler').on('appointmentChange', function (event) {
+   var currentData = scheduler.jqxScheduler('getAppointments');
+   appointments = new Array();
+   $.each(currentData, function(i, currentAppointment){
+      appointments.push(currentAppointment.originalData);
+   });
    save(appointments);
 });
 
@@ -35,7 +41,6 @@ $(document).ready(function () {
       url: 'src/php/salvacarica.php',
       type: "POST",
       success: function (response) {
-         console.log(response);
          appointments = JSON.parse(response);
          $.each(appointments, function (i, value){
             appointments[i].start = new Date(appointments[i].start);
@@ -44,19 +49,31 @@ $(document).ready(function () {
          var source = {
             dataType: "json",
             dataFields: [
-               { name: 'id', type: 'string' },
+               { name: 'allDay', type: 'boolean' },
+               { name: 'background', type: 'string' },
+               { name: 'borderColor', type: 'string' },
+               { name: 'color', type: 'string' },
                { name: 'description', type: 'string' },
+               { name: 'draggable', type: 'boolean' },
+               { name: 'from', type: 'jqxDate' },
+               { name: 'hidden', type: 'boolean' },
+               { name: 'id', type: 'string' },
                { name: 'location', type: 'string' },
+               { name: 'resizable', type: 'string' },
+               { name: 'resourceId', type: 'string' },
+               { name: 'readOnly', type: 'boolean' },
                { name: 'subject', type: 'string' },
-               { name: 'calendar', type: 'string' },
-               { name: 'start', type: 'date' },
-               { name: 'end', type: 'date' }
+               { name: 'status', type: 'string' },
+               { name: 'to', type: 'date' },
+               { name: 'tooltip', type: 'string' },
+               { name: 'timeZone', type: 'string' }
             ],
             id: 'id',
+            //localData: appointments
             url: 'src/php/results.json'
          };
          var adapter = new $.jqx.dataAdapter(source);
-         $("#scheduler").jqxScheduler({
+         scheduler.jqxScheduler({
             date: new $.jqx.date('todayDate'),
             source: adapter,
             width: '100%',
@@ -78,7 +95,7 @@ $(document).ready(function () {
                }
             },
             ready: function () {
-               $("#scheduler").jqxScheduler('ensureAppointmentVisible', 'id1');
+               scheduler.jqxScheduler('ensureAppointmentVisible', 'id1');
             },
             resources:
             {
@@ -88,13 +105,25 @@ $(document).ready(function () {
             },
             appointmentDataFields:
             {
-               from: "start",
-               to: "end",
-               id: "id",
+               allDay: "allDay",
+               background: "background",
+               borderColor: "borderColor",
+               color: "color",
                description: "description",
-               location: "place",
+               draggable: "draggable",
+               from: "from",
+               hidden: "hidden",
+               id: "id",
+               location: "location",
+               resizable: "resizable",
+               resourceId: "resourceId",
+               readOnly: "readOnly",
                subject: "subject",
-               resourceId: "calendar"
+               style: "style",
+               status: "status",
+               to: "to",
+               tooltip: "tooltip",
+               timeZone: "timeZone"
             },
             views:
             [
