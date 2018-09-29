@@ -1,4 +1,5 @@
 var appointments = new Array();
+var currentData = new Array();
 var scheduler = $("#scheduler");
 var view = "";
 
@@ -9,6 +10,14 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 }
 
 function save(data){
+   if(!data){
+      currentData = scheduler.jqxScheduler('getAppointments');
+      appointments = [];
+      $.each(currentData, function(i, currentAppointment){
+         appointments.push(currentAppointment.originalData);
+      });
+      data = appointments;
+   }
    $.ajax({
       url: 'src/php/salvacarica.php',
       data: JSON.stringify(data, null, 2),
@@ -22,17 +31,17 @@ function save(data){
    });
 }
 
-$('#scheduler').on('appointmentChange', function (event) {
-   var currentData = scheduler.jqxScheduler('getAppointments');
-   appointments = new Array();
-   $.each(currentData, function(i, currentAppointment){
-      appointments.push(currentAppointment.originalData);
-   });
+scheduler.on('appointmentAdd', function (event) {
+   appointments.push(event.args.appointment.originalData);
    save(appointments);
 });
 
-$('#scheduler').on('appointmentAdd', function (event) {
-   appointments.push(event.args.appointment.originalData);
+scheduler.on('appointmentChange', function (event) {
+   save();
+});
+
+scheduler.on('appointmentDelete', function (event) {
+   appointments.splice($.inArray(event.args.appointment, appointments),1);
    save(appointments);
 });
 
@@ -55,22 +64,17 @@ $(document).ready(function () {
                { name: 'color', type: 'string' },
                { name: 'description', type: 'string' },
                { name: 'draggable', type: 'boolean' },
-               { name: 'from', type: 'jqxDate' },
-               { name: 'hidden', type: 'boolean' },
                { name: 'id', type: 'string' },
                { name: 'location', type: 'string' },
-               { name: 'resizable', type: 'string' },
-               { name: 'resourceId', type: 'string' },
-               { name: 'readOnly', type: 'boolean' },
                { name: 'subject', type: 'string' },
                { name: 'status', type: 'string' },
-               { name: 'to', type: 'date' },
                { name: 'tooltip', type: 'string' },
-               { name: 'timeZone', type: 'string' }
+               { name: 'start', type: 'date' },
+               { name: 'end', type: 'date' }
             ],
             id: 'id',
-            //localData: appointments
-            url: 'src/php/results.json'
+            localData: appointments
+            //url: 'src/php/results.json'
          };
          var adapter = new $.jqx.dataAdapter(source);
          scheduler.jqxScheduler({
@@ -111,19 +115,14 @@ $(document).ready(function () {
                color: "color",
                description: "description",
                draggable: "draggable",
-               from: "from",
-               hidden: "hidden",
+               from: "start",
                id: "id",
                location: "location",
-               resizable: "resizable",
-               resourceId: "resourceId",
-               readOnly: "readOnly",
                subject: "subject",
                style: "style",
                status: "status",
-               to: "to",
+               to: "end",
                tooltip: "tooltip",
-               timeZone: "timeZone"
             },
             views:
             [

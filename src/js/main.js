@@ -7,26 +7,14 @@ var newalert = 0;
 $('#rownewalert').hide();
 
 function setbackground(){
-   var bg = new Array(4);
-   bg[0] = "src/img/1.jpg";
-   bg[1] = "src/img/2.jpg";
-   bg[2] = "src/img/3.jpg";
-   bg[3] = "src/img/4.jpg";
+   var bg = ["src/img/1.jpg","src/img/2.jpg","src/img/3.jpg","src/img/4.jpg"];
    var n = Math.floor(Math.random() * bg.length);
    document.body.style.backgroundImage = "url('"+bg[n]+"')";
 };
 
 function todayis(){
    var data = new Date();
-   var weekday = new Array(7);
-   weekday[0] = "Lunedì";
-   weekday[1] = "Martedì";
-   weekday[2] = "Mercoledì";
-   weekday[3] = "Giovedì";
-   weekday[4] = "Venerdì";
-   weekday[5] = "Sabato";
-   weekday[6] = "Domenica";
-
+   var weekday = ["Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato","Domenica"];
    var giorno = weekday[data.getDay()-1];
    $.each(document.getElementsByClassName("todayis"), function(i, elem){
       elem.innerHTML = giorno;
