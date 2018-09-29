@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="it">
+
+	<head>
+		<title>La tua giornata</title>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="src/libs/bootstrap/bootstrap.min.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.base.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.android.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.arctic.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.black.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.blackberry.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.bootstrap.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.classic.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.dark.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.darkblue.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.energyblue.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.flat.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.fresh.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.glacier.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.highcontrast.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.light.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.material-green.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.material-purple.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.material.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.metro.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.metrodark.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.mobile.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.office.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.orange.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.shinyblack.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.summer.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.ui-darkness.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.ui-le-frog.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.ui-lightness.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.ui-overcast.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.ui-redmond.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.ui-smoothness.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.ui-start.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.ui-sunny.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.web.css" />
+		<link rel="stylesheet" href="src/libs/jqwidgets/styles/jqx.windowsphone.css" />
+		<link rel="stylesheet" href="src/css/animate.css" />
+		<link rel="stylesheet" href="src/css/all.min.css" />
+		<link rel="stylesheet" href="src/css/style.css" />
+	</head>
+
+	<body>
+		<div id="main" class="container ">
+			<h1 class="mt-5 display-4 animated fadeIn d-none d-lg-block">Ciao! Oggi è <span class="badge badge-primary todayis"></span>, ecco il programma:</h1>
+			<h2 class="mt-3 animated fadeIn d-lg-none">Programma di <span class="badge badge-primary todayis"></span></h2>
+			<p class="lead animated fadeInLeft d-none d-sm-block">La giornata è lunga, ricorda di prenderti una pausa ogni tanto</p>
+			<hr class="my-4">
+			<div id="rowalerts" class="row justify-content-center">
+				<div class="col-lg-10 col-sm-9 col-xs-12">
+					<div id="noticecontainer"></div>
+				</div>
+				<div class="col-lg-1 col-sm-1 d-none d-sm-block editbuttons">
+					<button type="button" class="btn btn-secondary mt-2 ml-2" onClick="changeNotesRow()">
+						<i class="fas fa-plus fa-lg" ></i>
+					</button>
+				</div>
+				<div class="col-lg-1 col-sm-2 d-none d-sm-block editbuttons">
+					<button type="button" class="btn btn-secondary mt-2 ml-2" onClick="deleteNote()">
+						<i class="fas fa-trash fa-lg" ></i>
+					</button>
+				</div>
+			</div>
+			<div id="rownewalert" class="row mb-3 justify-content-center">
+				<div class="col-lg-10 col-sm-9 col-xs-12">
+					<input id="newalertinput" class="form-control form-control-lg" type="text" placeholder="Default input">
+				</div>
+				<div class="col-lg-1 col-sm-2 d-none d-sm-block editbuttons">
+					<button type="button" class="btn btn-success mt-2 ml-2" onClick="saveNote()">
+						<i class="fas fa-save fa-lg"></i>
+					</button>
+				</div>
+				<div class="col-lg-1 col-sm-2 d-none d-sm-block editbuttons">
+					<button type="button" class="btn btn-danger mt-2 ml-2" onClick="changeNotesRow()">
+						<i class="fas fa-undo-alt fa-lg"></i>
+					</button>
+				</div>
+			</div>
+			<!--<div class="row">
+				<div class="col-lg-12">
+					<div class="schedulerContainer">
+						<div id="scheduler" class="scheduler animated fadeIn"></div>
+					</div>
+				</div>
+			</div>-->
+			<div class="schedulerContainer">
+				<div id="scheduler" class="scheduler animated fadeIn"></div>
+			</div>
+		</div>
+
+	</body>
+
+	<script type="text/javascript" src="src/libs/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="src/libs/bootstrap/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript" src="src/libs/jqwidgets/jqx-all.js"></script>
+	<!--<script type="text/javascript" src="src/libs/jqwidgets/jqxbuttons.js"></script>
+	<script type="text/javascript" src="src/libs/jqwidgets/jqxscrollbar.js"></script>
+	<script type="text/javascript" src="src/libs/jqwidgets/jqxdata.js"></script>
+   <script type="text/javascript" src="src/libs/jqwidgets/jqxdata.export.js"></script>
+	<script type="text/javascript" src="src/libs/jqwidgets/jqxdate.js"></script>
+	<script type="text/javascript" src="src/libs/jqwidgets/jqxscheduler.js"></script>
+	<script type="text/javascript" src="src/libs/jqwidgets/jqxscheduler.api.js"></script>
+	<script type="text/javascript" src="src/libs/jqwidgets/jqxdatetimeinput.js"></script>
+	<script type="text/javascript" src="src/libs/jqwidgets/jqxmenu.js"></script>
+	<script type="text/javascript" src="src/libs/jqwidgets/jqxcalendar.js"></script>
+	<script type="text/javascript" src="src/libs/jqwidgets/jqxtooltip.js"></script>
+	<script type="text/javascript" src="src/libs/jqwidgets/jqxwindow.js"></script>
+	<script type="text/javascript" src="src/libs/jqwidgets/jqxcheckbox.js"></script>
+	<script type="text/javascript" src="src/libs/jqwidgets/jqxlistbox.js"></script>
+	<script type="text/javascript" src="src/libs/jqwidgets/jqxdropdownlist.js"></script>
+	<script type="text/javascript" src="src/libs/jqwidgets/jqxnumberinput.js"></script>
+	<script type="text/javascript" src="src/libs/jqwidgets/jqxradiobutton.js"></script>
+	<script type="text/javascript" src="src/libs/jqwidgets/jqxinput.js"></script>-->
+	<script type="text/javascript" src="src/libs/jqwidgets/globalization/globalize.js"></script>
+	<script type="text/javascript" src="src/libs/jqwidgets/globalization/globalize.culture.it-IT.js"></script>
+	<script type="text/javascript" src="src/js/main.js"></script>
+	<script type="text/javascript" src="src/js/scheduler.js"></script>
+</html>
