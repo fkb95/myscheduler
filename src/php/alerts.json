@@ -1,1 +1,22 @@
-["Ti sei lavato i denti?","Scrivi a Giada ogni tanto","Vai alle poste per il diploma","Trovati un lavoro!","Controlla su Udemy se ci sono sconti"]
+[
+  {
+    "text": "Ti sei lavato i denti?",
+    "url": ""
+  },
+  {
+    "text": "Scrivi a Giada ogni tanto",
+    "url": ""
+  },
+  {
+    "text": "Controlla su Udemy se ci sono sconti",
+    "url": "https://www.udemy.com/home/my-courses/wishlist/"
+  },
+  {
+    "text": "Trovati un lavoro!",
+    "url": ""
+  },
+  {
+    "text": "Perugia 13 novembre",
+    "url": ""
+  }
+]

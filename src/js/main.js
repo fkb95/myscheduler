@@ -14,26 +14,35 @@ function setbackground(){
 
 function todayis(){
    var data = new Date();
-   var weekday = ["Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato","Domenica"];
-   var giorno = weekday[data.getDay()-1];
+   var weekday = ["Domenica", "Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato"];
+   var giorno = weekday[data.getDay()];
    $.each(document.getElementsByClassName("todayis"), function(i, elem){
       elem.innerHTML = giorno;
    })
 }
 
 function setNote(data){
-   var str =
-   '<div class="clearfix alert alert-warning animated shake" role="alert">'+
-      '<span id="alerttext" class="float-left">'+ data +'</span>'+
-      '<button id="nextAlert" class="float-right btn btn-sm btn-warning" onClick="changeAlert()"><i class="fas fa-step-forward fa-xs"></i></button>' +
-   '</div>';
+   var str;
+   if(!data.url){
+      str =
+      '<div class="clearfix alert alert-warning animated shake" role="alert">'+
+         '<span id="alerttext" class="float-left">'+ data.text +'</span>'+
+         '<button id="nextAlert" class="float-right btn btn-sm btn-warning" onClick="changeAlert()"><i class="fas fa-step-forward fa-xs"></i></button>' +
+      '</div>';
+   }else{
+      str =
+      '<div class="clearfix alert alert-warning animated shake" role="alert">'+
+         '<span id="alerttext" class="float-left"><a href="' + data.url + '">'+ data.text +'</a></span>'+
+         '<button id="nextAlert" class="float-right btn btn-sm btn-warning" onClick="changeAlert()"><i class="fas fa-step-forward fa-xs"></i></button>' +
+      '</div>';
+   }
    noticecontainer.innerHTML = str;
 }
 
 function changeAlert(){
    if($('#rowalerts').css('display')!="none"){
       var n = Math.floor(Math.random() * alerts.length);
-      while(alerts[n] == $("#alerttext").html()){
+      while(alerts[n].text == $("#alerttext").html()){
          n = Math.floor(Math.random() * alerts.length);
       }
       setNote(alerts[n]);
@@ -74,32 +83,35 @@ function changeNotesRow(){
    newalert = !newalert;
 }
 
-function saveNote(){
+function addNote(){
    var newalertstring = $("#newalertinput").val();
+   var newalertstringurl = $("#newalertinputurl").val();
    if(newalertstring != ""){
-      alerts.push(newalertstring);
-      $.ajax({
-         url: 'src/php/alerts.php',
-         data: JSON.stringify(alerts),
-         type: "POST",
-         success: function (response) {
-            console.log(response);
-         },
-         error: function (response) {
-            console.log(response);
-         }
-      });
+      if(newalertstringurl && !newalertstringurl.startsWith("http")){
+         newalertstringurl = 'http://' + newalertstringurl;
+      }
+      var temp = {
+         "text": newalertstring,
+         "url": newalertstringurl
+      }
+      alerts.push(temp);
+      saveNotes();
    }
-   setNote(newalertstring);
+   setNote(temp);
    changeNotesRow();
 }
 
 function deleteNote(){
    var oldalertstring = $("#alerttext").html();
-   alerts.splice($.inArray(oldalertstring, alerts),1);
+   alerts.splice($.inArray(oldalertstring, alerts.text),1);
+   saveNotes();
+   changeAlert();
+}
+
+function saveNotes(){
    $.ajax({
       url: 'src/php/alerts.php',
-      data: JSON.stringify(alerts),
+      data: JSON.stringify(alerts, null, 2),
       type: "POST",
       success: function (response) {
          console.log(response);
@@ -108,7 +120,6 @@ function deleteNote(){
          console.log(response);
       }
    });
-   changeAlert();
 }
 
 $(document).ready(function () {

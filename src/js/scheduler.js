@@ -81,13 +81,13 @@ $(document).ready(function () {
             date: new $.jqx.date('todayDate'),
             source: adapter,
             width: '100%',
-            height: 600,
+            height: 620,
             theme: "metro",
             view: view,
             showLegend: true,
             timeZone:"'W. Europe Standard Time' - (offsetMinutes: 60, offsetHours: 1, text: '(UTC+01:00) Amsterdam, Berlin, Rome'",
             localization: {
-               firstDay: 1,
+               firstDay: 0,
                days: {
                   names: ["Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"],
                   namesAbbr: ["Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab"],
@@ -100,6 +100,7 @@ $(document).ready(function () {
             },
             ready: function () {
                scheduler.jqxScheduler('ensureAppointmentVisible', 'id1');
+         		scheduler.jqxScheduler('scrollTop', 430);
             },
             resources:
             {
@@ -136,4 +137,7 @@ $(document).ready(function () {
          console.log(response);
       }
    });
+
+   $('#jqxScheduler').jqxScheduler('scrollTop', 100);
+
 });

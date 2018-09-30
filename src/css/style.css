@@ -22,7 +22,7 @@ body{
 }
 
 .schedulerContainer{
-   opacity: 0.8;
+   opacity: 0.9;
    width: 100%;
    overflow: hidden;
    padding: 3px;
@@ -34,7 +34,7 @@ body{
    opacity: 1;
 }
 
-#newalertinput{
+#newalertinput, #newalertinputurl{
    height:57px;
 }
 
