@@ -84,7 +84,9 @@ $(document).ready(function () {
             height: 620,
             theme: "metro",
             view: view,
-            showLegend: true,
+            showToolbar: true,
+            columnsHeight: 25,
+            rowsHeight: 25,
             timeZone:"'W. Europe Standard Time' - (offsetMinutes: 60, offsetHours: 1, text: '(UTC+01:00) Amsterdam, Berlin, Rome'",
             localization: {
                firstDay: 0,
@@ -100,7 +102,7 @@ $(document).ready(function () {
             },
             ready: function () {
                scheduler.jqxScheduler('ensureAppointmentVisible', 'id1');
-         		scheduler.jqxScheduler('scrollTop', 430);
+         		scheduler.jqxScheduler('scrollTop', 400);
             },
             resources:
             {
