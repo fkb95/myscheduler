@@ -89,9 +89,9 @@ $(document).ready(function () {
             localization: {
                firstDay: 1,
                days: {
-                  names: ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"],
-                  namesAbbr: ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"],
-                  namesShort: ["Lu", "Ma", "Me", "Gi", "Ve", "Sa", "Do"]
+                  names: ["Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"],
+                  namesAbbr: ["Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab"],
+                  namesShort: ["Do", "Lu", "Ma", "Me", "Gi", "Ve", "Sa"]
                },
                months: {
                   names: ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"],
