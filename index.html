@@ -48,45 +48,166 @@
 
 	<body>
 		<div id="main" class="container ">
-			<h1 class="mt-5 display-4 animated fadeIn d-none d-lg-block">Ciao! Oggi è <span class="badge badge-primary todayis"></span>, ecco il programma:</h1>
-			<h2 class="mt-3 animated fadeIn d-lg-none">Programma di <span class="badge badge-primary todayis"></span></h2>
-			<p class="lead animated fadeInLeft d-none d-sm-block">La giornata è lunga, ricorda di prenderti una pausa ogni tanto</p>
-			<hr class="my-4">
-			<div id="rowalerts" class="row justify-content-center">
-				<div class="col-lg-10 col-sm-9 col-xs-12">
-					<div id="noticecontainer"></div>
-				</div>
-				<div class="col-lg-1 col-sm-1 d-none d-sm-block editbuttons">
-					<button type="button" class="btn btn-secondary mt-2 ml-2" onClick="changeNotesRow()">
-						<i class="fas fa-plus fa-lg" ></i>
-					</button>
-				</div>
-				<div class="col-lg-1 col-sm-2 d-none d-sm-block editbuttons">
-					<button type="button" class="btn btn-secondary mt-2 ml-2" onClick="deleteNote()">
-						<i class="fas fa-trash fa-lg" ></i>
-					</button>
-				</div>
-			</div>
-			<div id="rownewalert" class="row mb-3 justify-content-center">
-				<div class="col-lg-6 col-sm-6 col-xs-6">
-					<input id="newalertinput" class="form-control form-control-lg" type="text" placeholder="nota">
-				</div>
-				<div class="col-lg-4 col-sm-4 col-xs-6">
-					<input id="newalertinputurl" class="form-control form-control-lg" type="text" placeholder="url">
-				</div>
-				<div class="col-lg-1 col-sm-2 d-none d-sm-block editbuttons">
-					<button type="button" class="btn btn-success mt-2 ml-2" onClick="addNote()">
-						<i class="fas fa-save fa-lg"></i>
-					</button>
-				</div>
-				<div class="col-lg-1 col-sm-2 d-none d-sm-block editbuttons">
-					<button type="button" class="btn btn-danger mt-2 ml-2" onClick="changeNotesRow()">
-						<i class="fas fa-undo-alt fa-lg"></i>
-					</button>
+			<div id="chooseUser" style="margin-top:30%;">
+				<div class="row">
+					<div class="col-lg-3"></div>
+					<div class="col-lg-6">
+						<div class="form-group">
+					   <label for="userComboBox">Utente</label>
+					   <select class="form-control" id="userComboBox">
+					      	<option>Fra</option>
+					      	<option>B&B Campogrande</option>
+					      	<option>Pino</option>
+					      	<option>Bella</option>
+					      	<option>Dan</option>
+								<option>Gialla</option>
+					   	</select>
+					  	</div>
+					  	<div class="form-group">
+					    	<label for="userPassword">Password</label>
+					   	<input type="password" class="form-control" id="userPassword" placeholder="Password">
+					  	</div>
+					   <button type="submit" class="btn btn-primary" onClick="login()">Vai</button>
+					</div>
+					<div class="col-lg-3"></div>
 				</div>
 			</div>
-			<div class="schedulerContainer">
-				<div id="scheduler" class="scheduler animated fadeIn"></div>
+			<div id="choosePage" style="margin-top:30%;">
+				<div class="row">
+					<div class="col-lg-1"></div>
+					<div class="col-lg-5">
+						<div class="card" style="width: 19rem;">
+						  	<img class="card-img-top" src="src/img/sched.jpg" alt="Card image cap">
+						  	<div class="card-body text-center">
+						   	<h3 class="card-title">Scheduler</h3>
+						   	<p class="card-text">Appuntamenti e calendario</p>
+						   	<button class="btn btn-outline-info" onClick="loadScheduler()">Apri</button>
+						  </div>
+						</div>
+					</div>
+					<div class="col-lg-5">
+						<div class="card" style="width: 19rem;">
+						  	<img class="card-img-top" src="src/img/deads.jpg" alt="Card image cap">
+						  	<div class="card-body text-center">
+						   	<h3 class="card-title">Deadlines</h3>
+						   	<p class="card-text">Visualizza e gestisci le scadenze</p>
+						   	<button class="btn btn-outline-info" onClick="loadDeadlines()">Apri</button>
+						  </div>
+						</div>
+					</div>
+					<div class="col-lg-1"></div>
+				</div>
+			</div>
+			<div id="myScheduler" class="">
+				<h1 class="mt-5 display-4 animated fadeIn d-none d-lg-block">Ciao! Oggi è <span class="badge badge-primary todayis"></span>, ecco il programma:</h1>
+				<h2 class="mt-3 animated fadeIn d-lg-none">Programma di <span class="badge badge-primary todayis"></span></h2>
+				<p class="lead animated fadeInLeft d-none d-sm-block">La giornata è lunga, ricorda di prenderti una pausa ogni tanto</p>
+				<hr class="my-4">
+				<div id="rowalerts" class="row justify-content-center">
+					<div class="col-lg-10 col-sm-9 col-xs-12">
+						<div id="noticecontainer"></div>
+					</div>
+					<div class="col-lg-1 col-sm-1 d-none d-sm-block editbuttons">
+						<button type="button" class="btn btn-secondary mt-2 ml-2" onClick="changeNotesRow()">
+							<i class="fas fa-plus fa-lg" ></i>
+						</button>
+					</div>
+					<div class="col-lg-1 col-sm-2 d-none d-sm-block editbuttons">
+						<button type="button" class="btn btn-secondary mt-2 ml-2" onClick="deleteNote()">
+							<i class="fas fa-trash fa-lg" ></i>
+						</button>
+					</div>
+				</div>
+				<div id="rownewalert" class="row mb-3 justify-content-center">
+					<div class="col-lg-6 col-sm-6 col-xs-6">
+						<input id="newalertinput" class="form-control form-control-lg" type="text" placeholder="nota">
+					</div>
+					<div class="col-lg-4 col-sm-4 col-xs-6">
+						<input id="newalertinputurl" class="form-control form-control-lg" type="text" placeholder="url">
+					</div>
+					<div class="col-lg-1 col-sm-2 d-none d-sm-block editbuttons">
+						<button type="button" class="btn btn-success mt-2 ml-2" onClick="addNote()">
+							<i class="fas fa-save fa-lg"></i>
+						</button>
+					</div>
+					<div class="col-lg-1 col-sm-2 d-none d-sm-block editbuttons">
+						<button type="button" class="btn btn-danger mt-2 ml-2" onClick="changeNotesRow()">
+							<i class="fas fa-undo-alt fa-lg"></i>
+						</button>
+					</div>
+				</div>
+				<div class="schedulerContainer">
+					<div id="scheduler" class="scheduler animated fadeIn"></div>
+				</div>
+				<div class="text-center mt-3">
+					<button class="btn btn-dark btn-sm" onClick="loadDeadlines()">Vai alle scadenze</button>
+				</div>
+			</div>
+			<div id="myDeadlines" class="">
+				<h1 class="mt-5 display-4 animated fadeIn d-none d-lg-block">Ciao! Ecco le scadenze di oggi:</h1>
+				<h2 class="mt-3 animated fadeIn d-lg-none">Scadenze di <span class="badge badge-primary todayis"></span></h2>
+				<p class="lead animated fadeInLeft d-none d-sm-block">La giornata è lunga, ricorda di prenderti una pausa ogni tanto</p>
+				<hr class="my-4">
+				<div id="tableContainer mb-5 table-responsive">
+					<table class="table table-striped table-borderless table-hover ">
+					  	<thead class="thead-dark">
+					   	<tr>
+					      	<th scope="col">#</th>
+					      	<th scope="col">Descrizione</th>
+					      	<th scope="col">Orario</th>
+								<th scope="col">Addetto</th>
+					    	</tr>
+					  	</thead>
+					  	<tbody>
+							<tr class="table-active">
+					      	<th scope="row">1</th>
+					      	<td>Portare tamburo minolta Agriturismo</td>
+					      	<td>14:00</td>
+					      	<td>Stefano</td>
+					    	</tr>
+							<tr class="table-active">
+					      	<th scope="row">2</th>
+					      	<td>Riparare registratore di cassa Vezio</td>
+					      	<td>16:00</td>
+					      	<td>Marco</td>
+					   	</tr>
+					    	<tr class="table-active">
+					      	<th scope="row">3</th>
+					      	<td>Installare il gestionale nuovo</td>
+					      	<td>18:00</td>
+					      	<td>Ugo</td>
+					    	</tr>
+							<tr class="table-active">
+					      	<th scope="row">4</th>
+					      	<td>Riparare computer Thomas</td>
+					      	<td>18:00</td>
+					      	<td>Franesco</td>
+					    	</tr>
+					    	<tr class="table-active">
+					      	<th scope="row">5</th>
+					      	<td>Riparare registratore di cassa Giovanni</td>
+					      	<td>18:00</td>
+					      	<td>Marco</td>
+					   	</tr>
+							<tr class="table-active">
+					      	<th scope="row">6</th>
+					      	<td>Finire il gestionale interno</td>
+					      	<td>19:00</td>
+					      	<td>Franesco</td>
+					    	</tr>
+							<tr>
+								<td class="text-center" colspan="4">
+									<button type="button" class="btn btn-outline-info" onClick="addDeadline()" style="width:100%">
+										<i class="fas fa-plus fa-lg" ></i>
+									</button>
+								</td>
+							</tr>
+					  	</tbody>
+					</table>
+				</div>
+				<div class="text-center mt-5">
+					<button class="btn btn-dark btn-sm" onClick="loadScheduler()">Vai agli impegni</button>
+				</div>
 			</div>
 		</div>
 

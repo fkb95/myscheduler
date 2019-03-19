@@ -3,8 +3,15 @@ var noticecontainer = document.getElementById("noticecontainer");
 var snd_alert = new Audio("src/snd/alert.ogg");
 var snd_login = new Audio("src/snd/start.ogg");
 var newalert = 0;
+var currentUser = "";
 
-$('#rownewalert').hide();
+
+$("#rownewalert").hide();
+$("#myScheduler").hide();
+$("#myDeadlines").hide();
+$("#choosePage").hide();
+
+
 
 function setbackground(){
    var bg = ["src/img/1.jpg","src/img/2.jpg","src/img/3.jpg","src/img/4.jpg"];
@@ -19,6 +26,38 @@ function todayis(){
    $.each(document.getElementsByClassName("todayis"), function(i, elem){
       elem.innerHTML = giorno;
    })
+}
+
+function login(){
+   currentUser = $('#userComboBox option:selected').val();
+   password = $("#userPassword").val();
+   if(currentUser == "Fra" && password == "a") loadChoosePage();
+   else if(currentUser == "B&BCampogrande" && password == "a") loadChoosePage();
+   else if(currentUser == "Pino" && password == "a") loadChoosePage();
+   else if(currentUser == "Bella" && password == "a") loadChoosePage();
+   else if(currentUser == "Dan" && password == "a") loadChoosePage();
+   else if(currentUser == "Gialla" && password == "a") loadChoosePage();
+   else alert("Password Sbagliata");
+}
+
+function loadChoosePage(){
+   $("#chooseUser").hide();
+   $("#choosePage").show();
+
+   loadAlerts();
+   loadSchedulerData();
+}
+
+function loadScheduler(){
+   $("#choosePage").hide();
+   $("#myDeadlines").hide();
+   $("#myScheduler").show();
+}
+
+function loadDeadlines(){
+   $("#choosePage").hide();
+   $("#myScheduler").hide();
+   $("#myDeadlines").show();
 }
 
 function setNote(data){
@@ -53,16 +92,23 @@ function changeAlert(){
 function loadAlerts() {
    var counter = 0;
    var inst;
+   var data = {
+      "user": currentUser,
+      "data": {}
+   };
    $.ajax({
       url: 'src/php/alerts.php',
+      data: JSON.stringify(data),
       type: "POST",
       success: function (response) {
-         alerts = JSON.parse(response);
-         if(alerts.length>0){
-            changeAlert();
-            inst = setInterval(changeAlert, 180000);
-         }else{
-            setNote("Non hai aggiunto ancora nessuna nota!");
+         if(response){
+            alerts = JSON.parse(response);
+            if(alerts.length>0){
+               changeAlert();
+               inst = setInterval(changeAlert, 180000);
+            }else{
+               setNote("Non hai aggiunto ancora nessuna nota!");
+            }
          }
       },
       error: function (response) {
@@ -111,7 +157,10 @@ function deleteNote(){
 function saveNotes(){
    $.ajax({
       url: 'src/php/alerts.php',
-      data: JSON.stringify(alerts, null, 2),
+      data: {
+         "myuser": currentUser,
+         "mydata": JSON.stringify(alerts, null, 2)
+      },
       type: "POST",
       success: function (response) {
          console.log(response);
@@ -125,7 +174,5 @@ function saveNotes(){
 $(document).ready(function () {
    setbackground();
    todayis();
-   loadAlerts();
-
    snd_login.play();
 });

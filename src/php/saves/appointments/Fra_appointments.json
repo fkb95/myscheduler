@@ -1,0 +1,53 @@
+[
+  {
+    "allDay": true,
+    "background": "rgba(137, 165, 78, 0.8)",
+    "borderColor": "#89A54E",
+    "color": "White",
+    "description": "9431581485",
+    "draggable": true,
+    "start": "2018-10-15T22:00:00.000Z",
+    "id": "2021-25-20-30-31",
+    "location": "",
+    "subject": "Giovanni",
+    "style": null,
+    "status": "busy",
+    "end": "2018-10-18T21:59:59.000Z",
+    "tooltip": "",
+    "calendar": ""
+  },
+  {
+    "allDay": true,
+    "background": "rgba(170, 70, 67, 0.8)",
+    "borderColor": "#AA4643",
+    "color": "White",
+    "description": "33865425876",
+    "draggable": true,
+    "start": "2018-10-15T22:00:00.000Z",
+    "id": "1830-27-31-21-20",
+    "location": "",
+    "subject": "Marco",
+    "style": null,
+    "status": "busy",
+    "end": "2018-10-16T21:59:59.000Z",
+    "tooltip": "",
+    "calendar": ""
+  },
+  {
+    "allDay": true,
+    "background": "rgba(170, 70, 67, 0.8)",
+    "borderColor": "#AA4643",
+    "color": "White",
+    "description": "33356974215",
+    "draggable": true,
+    "start": "2018-10-17T22:00:00.000Z",
+    "id": "2228-18-24-26-20",
+    "location": "",
+    "subject": "Lorena",
+    "style": null,
+    "status": "busy",
+    "end": "2018-10-21T21:59:59.000Z",
+    "tooltip": "",
+    "calendar": ""
+  }
+]
